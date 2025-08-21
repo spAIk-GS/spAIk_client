@@ -3,9 +3,14 @@ import mainImage from "../assets/mainPageImage.png";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
 
 
 const MainPage = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="main-page">
       <Header />
@@ -31,7 +36,11 @@ const MainPage = () => {
             is the cornerstone of your<br />
             team’s achievements. ”
           </p>
-          <button className="main-page__cta">Get Started</button>
+          <button className="main-page__cta"
+            onClick={() => navigate("/getStarted")}
+          >
+            Get Started
+          </button>
         </motion.div>
       </main>
 

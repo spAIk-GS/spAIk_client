@@ -20,12 +20,16 @@ const Header = () => {
         ) : (
           <a href="/login">Upload</a>
         )}
-        <a href="#">Product</a>
+        
+        <a href="/product">Product</a>
+
+        {/* 임시 */}
         {isLoggedIn ? (
-          <a href="/#">History</a>
+          <a href="/history">History</a>
         ) : (
           <a href="/login">History</a>
         )}
+
         {isLoggedIn ? (
           <a href="/profile">My</a>
         ) : (

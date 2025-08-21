@@ -39,6 +39,10 @@ npm install jwt-decode
 
 npm install axios
 
+npm i recharts
+
+npm i react-markdown remark-gfm
+
 🚀 개발 서버 실행
 
 npm run dev

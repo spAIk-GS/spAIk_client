@@ -7,7 +7,11 @@ import Upload from "../pages/UploadPage";
 import TermsPage from "../pages/TermsPage";
 import PolicyPage from "../pages/PolicyPage";
 import ForgotPage from "../pages/ForgotPage";
-
+import ProductPage from "../pages/ProductPage";
+import ResultPage from "../pages/ResultPage";
+import HistoryPage from "../pages/HistoryPage";
+import OAuthCallback from "../pages/OAuthCallback";
+import GetstartedPage3 from "../pages/GetstartedPage3";
 
 
 
@@ -22,6 +26,12 @@ const AppRouter = () => (
       <Route path="/terms" element={<TermsPage />} />
       <Route path="/policy" element={<PolicyPage />} />  
       <Route path="/forgot" element={<ForgotPage />} />
+      <Route path="/result/:presentationId" element={<ResultPage />} />
+      <Route path="/product" element={<ProductPage />} />
+      <Route path="/history" element={<HistoryPage />} />
+      <Route path="/getStarted" element={<GetstartedPage3 />} />
+      <Route path="/oauth/callback" element={<OAuthCallback />} />
+
 
     </Routes>
   </BrowserRouter>

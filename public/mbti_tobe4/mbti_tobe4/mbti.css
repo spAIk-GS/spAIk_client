@@ -1,0 +1,184 @@
+/* =========================================================
+   MBTI TEST – Clean CSS (font unified with system Gungseo)
+   - NanumSquareRound 300/400/700/800(+900 매핑) 등록
+   - System Batang for Gungseo (no external font)
+   - 전역 상속으로 폰트 통일, 결과 페이지에 궁서체 적용
+   - 중복/!important 제거
+   ========================================================= */
+
+/* ====== NanumSquareRound 등록 (TTF) ====== */
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('./fonts/NanumSquareRoundL.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('./fonts/NanumSquareRoundR.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('./fonts/NanumSquareRoundB.ttf') format('truetype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('./fonts/NanumSquareRoundEB.ttf') format('truetype');
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+/* 900 웨이트 요청이 들어올 때 EB(800) 파일로 매핑 */
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('./fonts/NanumSquareRoundEB.ttf') format('truetype');
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+
+/* ===== 전역 폰트 통일 ===== */
+:root{
+  --font-sans: 'NanumSquareRound', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --line:#b89f67;
+  --card:#fff6e8;
+  --brown:#614a2b;
+  --accent:#5aa970;
+  --shadow:0 8px 0 rgba(40,30,15,.12);
+  --radius:20px;
+}
+html, body { height:100%; font-family: var(--font-sans); }
+body, button, input, select, textarea { font-family: inherit; }
+
+/* ===== Reset-ish ===== */
+*{ box-sizing:border-box }
+body{
+  margin:0;
+  color:var(--brown);
+  background:linear-gradient(90deg,#f4f7e9 0 20%,#e3f0bb 20% 40%,#fff0b9 40% 60%,#ffe2a6 60% 80%,#ffd091 80% 100%);
+  overflow:hidden;
+}
+.hidden{ display:none !important }
+
+/* 화면 레이아웃 */
+.screen{
+  height:calc(var(--vh, 1vh) * 100);
+  min-height:calc(var(--vh, 1vh) * 100);
+  display:grid;
+  align-content:start;
+  justify-items:center;
+  padding:4vh 16px 3vh;
+  overflow:hidden;
+}
+
+/* ===== 랜딩 ===== */
+.start{
+  padding:0; place-items:center;
+  background:url("img/start.png") center/cover no-repeat fixed;
+  position:relative;
+}
+.start .start-btn{
+  position:absolute; left:50%; top:60%;
+  transform:translate(-50%,-50%);
+  min-width:min(54vw,340px); height:56px;
+  border-radius:999px; border:3px solid var(--brown);
+  background:#d7ebc8; color:#2b3b2f;
+  font-weight:900; font-size:clamp(15px,2vw,19px);
+  letter-spacing:.4px; box-shadow:var(--shadow); cursor:pointer; z-index:2;
+}
+.start .start-btn::before,.start .start-btn::after{
+  content:""; position:absolute; top:50%;
+  width:14px; height:14px; border-radius:999px;
+  border:3px solid var(--brown); background:#c7e0b3; transform:translateY(-50%);
+}
+.start .start-btn::before{ left:12px } .start .start-btn::after{ right:12px }
+.start .start-btn:active{ transform:translate(-50%,-50%) }
+
+/* ===== 질문 보드 ===== */
+.board{ width:min(960px, 88vw); display:flex; flex-direction:column; align-items:center; gap:1.8vh; }
+.bubble{ background:#e2f0f1; border:4px solid var(--brown); border-radius:20px; padding:12px 16px; box-shadow:var(--shadow); width:97%; }
+.quiz-head{ display:flex; align-items:center; gap:12px; }
+.badge{ width:40px; height:40px; border:4px solid var(--brown); border-radius:999px; display:grid; place-items:center; background:#fff; font-weight:900; font-size:15px; }
+.q-title{ margin:0; font-weight:900; line-height:1.45; font-size:clamp(16px,1.8vw,20px) }
+
+.q-visual{ width:min(600px, 82vw); height:clamp(300px, 45vh, 500px); margin:10px auto; background:#eaf6e8; border:4px solid var(--brown); border-radius:22px; box-shadow:var(--shadow); display:grid; place-items:center; overflow:hidden; }
+.q-visual img{ max-width:94%; max-height:90%; object-fit:contain }
+
+.options-row{ display:grid; grid-template-columns: 1fr 1fr; gap:40px; width:min(900px, 88vw); margin:2px auto 0; }
+.option{ display:flex; gap:10px; align-items:center; background:#fff6da; border:4px solid var(--brown); border-radius:16px; padding:10px 14px; cursor:pointer; text-align:left; box-shadow:var(--shadow); }
+.option:hover{ transform:translateY(1px) }
+.option .label{ flex:0 0 44px; height:44px; border:4px solid var(--brown); border-radius:12px; display:grid; place-items:center; background:#fff; font-weight:900; }
+.opt-contents{ display:flex; flex-direction:column; gap:6px }
+.opt-main{ font-weight:900; font-size:clamp(15px,1.6vw,17px) }
+.opt-sub{ margin:0; padding-left:16px; color:#6e5e41; font-size:clamp(13px,1.4vw,15px) }
+.opt-sub li{ margin:2px 0 }
+
+.test-footer{ display:grid; grid-template-columns:auto 1fr; align-items:center; gap:16px; width:min(720px, 80vw); margin:0 auto; }
+.btn{ display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border:3px solid var(--brown); background:#fff; color:var(--brown); border-radius:12px; font-weight:700; white-space:nowrap; box-shadow:var(--shadow); cursor:pointer; font-size:14px; }
+.btn.ghost{ background:#ffe9c6; }
+.progress{ height:10px; background:#ffe9c6; border:3px solid var(--brown); border-radius:999px; overflow:hidden; }
+.progress .bar{ height:100%; width:0; background:#9bd18f }
+
+/* ===== 결과 공통 ===== */
+.result-card{
+  background:var(--card);
+  border:4px solid var(--brown);
+  border-radius:22px;
+  padding:22px;
+  width:min(960px, 88vw);
+  box-shadow:var(--shadow);
+
+  /* 폰트 품질/합성 제어 */
+  font-synthesis:none;                 /* 가짜 Bold/Italic 합성 금지 */
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.result-title{ margin:0 0 12px; font-size:26px; font-weight:800; }
+.result-sub{ margin:0 0 12px; color:#6e5e41; font-weight:400; }
+
+.gauges{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.gauge{ border:4px solid var(--brown); border-radius:14px; background:#fff; padding:1px 10px 10px 10px;}
+.gauge .track{ height:12px; border:3px solid var(--brown); border-radius:999px; overflow:hidden; background:#ffe9c6 }
+.gauge .fill{ height:100%; background:#9bd18f }
+
+.actions{ display:flex; justify-content:center; margin-top:16px; }
+
+/* ===== 결과 페이지 1 ===== */
+.result-two .r1-layout{ display:grid; grid-template-columns: 320px 1fr; gap:18px; margin:8px 0 14px; }
+.r-img{ width:100%; height: 220px; margin:0; margin-top:-12px;  margin-top:-12px; border-radius:16px; background:#0000; padding:0; display:flex; place-items:center; justify-content: center;}
+.r-img img{width:100%; height:100%; object-fit:contain; background:#0000; border-radius:12px; }
+.r-text{ border:3px solid var(--brown); border-radius:16px; background:#0000; color:#000; padding: 0px 22px; line-height: 1.3; font-size: 15px; font-weight: 200;}
+
+/* ===== 결과 페이지 2 ===== */
+.morning .r2-wide{ border:4px solid var(--brown); border-radius:16px; background:#0000; color:#000; padding:1px; }
+.morning .r2-row{ display:grid; grid-template-columns: 320px 1fr; gap:18px; margin:14px 0; }
+.morning .pair-title{ display:flex; align-items:center; gap:10px; margin:6px 0 10px; font-weight:700; }
+.morning .hearts{ color:#ff6688; margin-right:6px; }
+.morning .pair-chip{ display:inline-block; padding:6px 10px; border-radius:999px; border:3px solid var(--brown); background:#fff; margin-left:6px; font-weight:700; }
+.morning .r2-block{ border:4px solid var(--brown); border-radius:16px; background:#0000; color:#000; padding:1px; height:90px; }
+.morning .r-img{ margin:0; border-radius:16px; background:#0000; padding:0; display:flex; place-items:center; height:190px; overflow:hidden; }
+.morning .r-img img{ width:100%; height:100%; object-fit:contain; background:#0000; border-radius:12px; }
+
+/* 결과 텍스트(문단) 기본 굵기 고정 */
+.r-text p,
+.morning .r2-block p { font-family: var(--font-gungseo); font-weight:400; }
+
+/* 반응형 */
+@media (max-width: 900px){
+  .options-row{ grid-template-columns:1fr; }
+  .q-visual{ width:86vw; height:32vh; }
+  .start .start-btn{ top:52%; min-width:64vw; }
+
+  .result-two .r1-layout,
+  .morning .r2-row{ grid-template-columns:1fr; }
+}
+
+/* ===== 결과 텍스트 박스(주입 대상) 안전핀 ===== */
+#r1-paragraph,
+#r2-morning,
+#r2-detail,
+#r2-pair-explain,
+#r2-pair-explain *{
+  font-family: var(--font-gungseo);
+  font-weight:400;
+  font-style:normal;
+}
+b, strong { font-weight:700; font-family:inherit }

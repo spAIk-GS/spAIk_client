@@ -1,0 +1,45 @@
+.container {
+    min-height: 400px;
+}
+
+.history-item {
+    a { // Link 태그에 스타일 적용
+        display: flex;         // Flexbox 레이아웃 사용
+        align-items: center;   // 세로 중앙 정렬
+        padding: 12px;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+        gap: 10px;  
+        
+
+        &:hover {
+            background-color: #f3f4f6; // 마우스를 올렸을 때 배경색 변경
+        }
+    }
+}
+
+
+
+.history-thumbnail {
+    width: 80px;         // 썸네일 너비
+    height: 45px;        // 썸네일 높이 (16:9 비율)
+    border-radius: 6px;  // 모서리를 둥글게
+    object-fit: cover;   // 이미지가 잘리지 않고 꽉 차게 표시
+    margin-right: 16px;  // 텍스트와의 간격
+    border: 1px solid #e5e7eb;
+}
+
+.history-text {
+    display: flex;
+    flex-direction: column; // 텍스트를 세로로 배치
+}
+
+.history-date {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.history-title {
+    font-size: 12px;
+    color: #6b7280;
+}

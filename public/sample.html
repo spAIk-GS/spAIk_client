@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Full-Section Videos (1/2/3)</title>
+  <style>
+    :root{
+      --nav-right: 18px;
+      --dot:#aab2bf;
+      --dot-active:#ffffff;
+      --ring: rgba(255,255,255,.22);
+      --dot-size: 10px;
+      --ring-size: 26px;
+      --dot-gap: 12px;
+    }
+    *,*::before,*::after{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{ margin:0; background:#000; color:#fff; font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",Arial,sans-serif; }
+
+    /* 스냅 컨테이너 */
+    main.snap{
+      height:100svh;
+      overflow-y:auto;
+      scroll-snap-type:y mandatory;
+      /* 기본 smooth는 유지하되, 휠은 JS로 제어 */
+      scroll-behavior:smooth;
+      overscroll-behavior-y:contain;
+      background:#000;
+    }
+
+    /* 각 섹션: 비디오를 꽉 채우기 위한 래퍼 */
+    section.panel{
+      position:relative;
+      min-height:100svh;
+      scroll-snap-align:start;
+      overflow:hidden;
+      background:#000;
+      display:grid;
+      place-items:center;
+    }
+
+    /* 비디오: 전체 꽉 차게 */
+    .fullvideo{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;      /* 잘림 허용하고 화면 가득 */
+    }
+
+    /* 접근성용 라벨(화면에 안보이게) */
+    .sr-only{
+      position:absolute !important;
+      width:1px; height:1px;
+      padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* 오른쪽 점 네비 */
+    .dotnav{
+      position:fixed; z-index:10;
+      right:var(--nav-right); top:50%; transform:translateY(-50%);
+      display:flex; flex-direction:column; gap:var(--dot-gap);
+      user-select:none;
+    }
+    .dot{
+      position:relative; width:var(--ring-size); height:var(--ring-size);
+      display:grid; place-items:center; cursor:pointer; border:0; background:none;
+    }
+    .dot::before{
+      content:""; position:absolute; inset:0; border-radius:50%;
+      background:conic-gradient(#757575 var(--progress,0), transparent 0);
+      mask: radial-gradient(circle calc(50% - 5px), transparent 98%, black 100%);
+      opacity:.9;
+    }
+    .dot::after{
+      content:""; width:var(--dot-size); height:var(--dot-size);
+      border-radius:50%; background:var(--dot);
+      box-shadow:0 0 0 6px var(--ring);
+      transition:.2s ease;
+    }
+    .dot.active::after{ background:var(--dot-active); box-shadow:0 0 0 8px var(--ring); transform:scale(1.06); }
+    .dot span{ display:none; }
+
+    @media (max-width: 680px){
+      :root{ --nav-right:10px; --ring-size:24px; --dot-size:9px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 점 네비 (JS가 채움) -->
+  <nav class="dotnav" aria-label="Section navigation"></nav>
+
+  <main class="snap" id="container" tabindex="0">
+    <!-- 섹션 1: 1번.mp4 -->
+    <section class="panel" id="s1" data-label="1번 영상">
+      <h1 class="sr-only">섹션 1: 1번 영상</h1>
+      <video class="fullvideo"
+             src="./n1.mp4"
+             autoplay muted playsinline loop
+             preload="auto"></video>
+    </section>
+
+    <!-- 섹션 2: 2번.mp4 -->
+    <section class="panel" id="s2" data-label="2번 영상">
+      <h1 class="sr-only">섹션 2: 2번 영상</h1>
+      <video class="fullvideo"
+             src="./n2.mp4"
+             autoplay muted playsinline
+             preload="auto"></video>
+    </section>
+
+    <!-- 섹션 3: 3번.mp4 -->
+    <section class="panel" id="s3" data-label="3번 영상">
+      <h1 class="sr-only">섹션 3: 3번 영상</h1>
+      <video class="fullvideo"
+             src="./n3.mp4"
+             autoplay muted playsinline loop
+             preload="auto"></video>
+    </section>
+  </main>
+
+  <script>
+    // ===== 기본 요소 수집 =====
+    const container = document.getElementById('container');
+    const sections = [...document.querySelectorAll('section.panel')];
+    const dotnav = document.querySelector('.dotnav');
+
+    // ===== 점 네비 생성 =====
+    sections.forEach((sec, idx) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot';
+      dot.dataset.index = idx;
+      dot.title = sec.dataset.label || sec.id;
+      // 점 네비 클릭도 동일한(느린) 속도로 이동
+      dot.addEventListener('click', () => {
+        const y = sections[idx].offsetTop;
+        smoothScrollTo(y, 1600); // ← 이동 시간(ms) 조절
+      });
+      dotnav.appendChild(dot);
+    });
+    const dots = [...document.querySelectorAll('.dot')];
+
+    // ===== 현재 섹션 표시 (IntersectionObserver) =====
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting && e.intersectionRatio>=0.6){
+          const i = sections.indexOf(e.target);
+          dots.forEach((d,k)=>d.classList.toggle('active', k===i));
+          history.replaceState(null,'',`#${sections[i].id}`);
+        }
+      });
+    }, {threshold:[0.6]});
+    sections.forEach(s=>io.observe(s));
+
+    // ===== 진행 링 애니메이션 =====
+    let raf=null;
+    function ring(){
+      cancelAnimationFrame(raf);
+      const start=performance.now(); const dur=500;
+      (function step(t){
+        const p=Math.min(1,(t-start)/dur);
+        dots.forEach(d=>d.style.setProperty('--progress', `${p*360}deg`));
+        if(p<1) raf=requestAnimationFrame(step);
+      })(performance.now());
+    }
+
+    // ===== 커스텀 스크롤 애니메이션 (속도 제어) =====
+    let isScrolling = false;
+    function smoothScrollTo(targetY, duration = 1600) {
+      isScrolling = true;
+      ring();
+
+      const startY = container.scrollTop;
+      const diff = targetY - startY;
+      const startTime = performance.now();
+
+      function easeInOutCubic(x){
+        return x < 0.5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3)/2;
+      }
+
+      function step(now){
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeInOutCubic(progress);
+
+        container.scrollTop = startY + diff * eased;
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          isScrolling = false;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    // ===== 휠로 한 섹션씩 천천히 이동 =====
+    container.addEventListener("wheel", (e) => {
+      // 현재 애니메이션 중이면 입력 무시
+      if (isScrolling) { e.preventDefault(); return; }
+
+      // 휠 스크롤을 직접 제어하기 위해 기본 동작 중단
+      e.preventDefault();
+
+      // 현재 보이는 섹션 인덱스 추정
+      const viewportH = container.clientHeight;
+      const current = sections.findIndex(sec => {
+        const r = sec.getBoundingClientRect();
+        // container 기준 좌표로 보정
+        const topInContainer = r.top - container.getBoundingClientRect().top + container.scrollTop;
+        const relTop = topInContainer - container.scrollTop;
+        return relTop >= -10 && relTop < viewportH/2;
+      });
+
+      if (e.deltaY > 0 && current < sections.length - 1) {
+        // 아래로
+        smoothScrollTo(sections[current + 1].offsetTop, 1600); // ← 시간 조절
+      } else if (e.deltaY < 0 && current > 0) {
+        // 위로
+        smoothScrollTo(sections[current - 1].offsetTop, 1600); // ← 시간 조절
+      }
+    }, { passive: false });
+
+   
+  // n2 영상 loop 딜레이 설정
+  const n2Video = document.querySelector('#s2 video');
+
+  if (n2Video) {
+    n2Video.addEventListener('ended', () => {
+      // 영상 끝나면 3초 기다렸다가 다시 재생
+      setTimeout(() => {
+        n2Video.currentTime = 0; 
+        n2Video.play();
+      }, 3000); // 3000ms = 3초
+    });
+  }
+
+
+  </script>
+
+
+<!-- 배경음악 (참고용 주석)
+ <body>
+  <audio id="bgm" src="./song.mp3" preload="auto" loop></audio>
+
+  <button id="playBgmBtn" style="
+    position:fixed; bottom:20px; right:20px;
+    padding:10px 16px; border:none; border-radius:8px;
+    background:#fff; color:#111; font-weight:600; cursor:pointer;
+    display:none; z-index:1000;
+  ">
+    배경음악 켜기
+  </button>
+
+  <script>
+    const bgm = document.getElementById('bgm');
+    const btn = document.getElementById('playBgmBtn');
+
+    // 자동재생 시도
+    bgm.play().catch(() => {
+      // 브라우저 정책 때문에 실패하면 버튼 보이기
+      btn.style.display = 'block';
+    });
+
+    // 버튼 누르면 수동 재생
+    btn.addEventListener('click', () => {
+      bgm.play().then(() => {
+        btn.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+ -->
+</body>
+</html>
+
+
+
+
+

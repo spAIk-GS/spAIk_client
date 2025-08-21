@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <link rel="preload" href="fonts/NanumSquareRoundR.ttf" as="font" type="font/ttf">
+  <link rel="preload" href="fonts/NanumSquareRoundB.ttf" as="font" type="font/ttf">
+  <link rel="preload" href="fonts/NanumSquareRoundEB.ttf" as="font" type="font/ttf">
+  <link rel="preload" href="fonts/NanumSquareRoundL.ttf" as="font" type="font/ttf">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>발표 MBTI</title>
+  <link rel="stylesheet" href="./mbti.css" />
+</head>
+<body>
+  <!-- 랜딩 -->
+  <section id="screen-start" class="screen start" aria-label="랜딩">
+    <button id="btn-start" class="start-btn" aria-label="테스트 시작">시작하기</button>
+  </section>
+
+  <!-- 질문 페이지 -->
+  <section id="screen-test" class="screen hidden" aria-live="polite">
+    <div class="board">
+      <header class="quiz-head bubble">
+        <span class="badge" id="q-number">1</span>
+        <h2 class="q-title" id="q-title"></h2>
+      </header>
+
+      <figure class="q-visual">
+        <img id="q-visual" alt="문항 삽화" />
+      </figure>
+
+      <div class="options-row">
+        <button class="option" id="opt-A">
+          <div class="label">A</div>
+          <div class="opt-contents">
+            <div class="opt-main" id="optA-main"></div>
+            <ul class="opt-sub" id="optA-sub"></ul>
+          </div>
+        </button>
+
+        <button class="option" id="opt-B">
+          <div class="label">B</div>
+          <div class="opt-contents">
+            <div class="opt-main" id="optB-main"></div>
+            <ul class="opt-sub" id="optB-sub"></ul>
+          </div>
+        </button>
+      </div>
+
+      <div class="test-footer">
+        <button class="btn ghost" id="btn-prev">← 이전</button>
+        <div class="progress"><div class="bar" id="progress"></div></div>
+      </div>
+    </div>
+
+    <footer class="legal">
+      <small>※ “MBTI”는 등록상표이며, 본 테스트는 참고용 비공식 도구입니다.</small>
+    </footer>
+  </section>
+
+  <!-- 결과 페이지 1 (ENTJ · 전략적 설득가) -->
+  <section id="screen-result-1" class="screen hidden">
+    <div class="result-card result-two">
+      <h2 class="result-title">
+        <span id="r1-type"></span> · <span id="r1-title"></span>
+      </h2>
+      <p class="result-sub" id="r1-sub"></p>
+
+      <div class="r1-layout">
+        <!-- 빨간 네모(이미지) -->
+        <figure class="r-img">
+          <img id="r1-img" alt="결과 일러스트 1" />
+        </figure>
+
+        <!-- 파란 네모(텍스트) -->
+        <div class="r-text">
+          <p id="r1-paragraph"></p>
+        </div>
+      </div>
+
+      <!-- 4개 게이지 -->
+      <div class="gauges" id="r1-gauges"></div>
+
+      <div class="actions">
+        <button class="btn" id="btn-result-next">처음으로</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 결과 페이지 2 (아침 풍경 & 궁합 팀원)
+  <section id="screen-result-2" class="screen hidden">
+    <div class="result-card morning">
+      <h2 class="result-title">
+        <span id="r2-type"></span>의 발표 당일 아침풍경
+      </h2>
+
+      
+      <div class="r2-block r2-wide">
+        <p id="r2-morning"></p>
+      </div>
+
+      <div class="r2-row">
+       
+        <figure class="r-img">
+          <img id="r2-img" alt="결과 일러스트 2" />
+        </figure>
+       
+        <div class="r2-block">
+          <p id="r2-detail"></p>
+        </div>
+      </div>
+
+      <h3 class="pair-title">
+        <span class="hearts">❤❤</span>
+        <span id="r2-type-mini"></span>와 궁합이 좋은 발표 팀원
+        <span class="pair-chip" id="r2-pair-chip"></span>
+      </h3>
+
+      <div class="r2-block r2-wide" id="r2-pair-explain"></div>
+
+      <div class="actions">
+        <button class="btn" id="btn-home">처음으로</button>
+      </div>
+    </div>
+  </section>
+ -->
+
+  <script src="./questions.js"></script>
+  <script src="./mbti.js"></script>
+</body>
+</html>

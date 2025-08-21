@@ -59,15 +59,17 @@ function SignupPage() {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("accessToken", data.token); // ??
-        setSuccessMsg(data.message || "회원가입이 완료되었습니다.");
+        // 이거 주석 나중에 지우셈
+        //const data = await response.json();
+        //localStorage.setItem("user", JSON.stringify(data.user));
+        //localStorage.setItem("accessToken", data.token);
+        setSuccessMsg("회원가입이 완료되었습니다.");
         setErrors({ name: "", email: "", password: "", confirmPassword: "", general: "" });
+
         // 로그인 페이지로 이동 (1초 후 ? )
         setTimeout(() => {
           navigate("/login");
-        }, 1000)
+        }, 500)
       } else {
         const errorData = await response.json();
         setErrors({ ...newErrors, general: errorData.error || "회원가입 중 오류가 발생했습니다." });
