@@ -15,7 +15,7 @@ body {
 }
 
 :root {
-  --footer-h: 850px; /* 필요시 높이 조정 */
+  --footer-h: 400px; /* 필요시 높이 조정 */
   --footer-gap: 16px; /* 푸터 위 간격(요청한 간격) */
 }
 .page-content {
@@ -53,7 +53,7 @@ body {
 
 .hero__copy2 {
     position: relative;
-    transform: translate(20%, 140%);
+    transform: translate(20%, 80%);
     z-index: 2; /* 글자가 위로 올라오게 */
     text-align: right;
     max-width: 900px;
@@ -69,7 +69,7 @@ body {
 
 .hero__copy3 {
     position: relative;
-    transform: translate(-60%, 190%);
+    transform: translate(-60%, 110%);
     z-index: 2; /* 글자가 위로 올라오게 */
     max-width: 900px;
     font-size: 2rem;
@@ -84,7 +84,7 @@ body {
 
 .hero__copy4 {
     position: relative;
-    transform: translate(60%, 310%);
+    transform: translate(60%, 150%);
     z-index: 2; /* 글자가 위로 올라오게 */
     max-width: 900px;
     font-size: 2rem;
@@ -102,7 +102,7 @@ body {
     position: absolute;
     top: 100%;
     left: 70%;
-    transform: translate(-30%, -40%);
+    transform: translate(-30%, -100%);
     opacity: 0.8; /* 살짝 투명도 */
     z-index: 1; /* 이미지가 글씨보다 뒤로 */
     flex: 1;
@@ -119,7 +119,7 @@ body {
 
 .graph {
     position: absolute;
-    top: 180%;
+    top: 130%;
     left: 70%;
     transform: translate(-250%, -20%);
     //opacity: 0.8; /* 살짝 투명도 */
@@ -138,7 +138,7 @@ body {
 
 .video {
     position: absolute;
-    top: 140%;
+    top: 40%;
     left: 130%;
     transform: translate(-150%, 20%);
     opacity: 0.8; /* 살짝 투명도 */
@@ -156,7 +156,7 @@ body {
 }
 .audio {
     position: absolute;
-    top: 180%;
+    top: 40%;
     left: 0%;
     transform: translate(-10%, 80%);
     opacity: 0.8; /* 살짝 투명도 */
