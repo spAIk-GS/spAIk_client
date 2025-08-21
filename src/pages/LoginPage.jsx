@@ -37,8 +37,10 @@
       } else {
         setErrorMsg('Invalid Email or Password');
       }
+      //
 
-      //나중에 스프링부트 연결 시 아래 코드 주석 해제
+      setErrorMsg("");
+
       try {
         const response = await fetch('http://localhost:8080/auth/login', {
           method: 'POST',
@@ -49,10 +51,14 @@
         if (response.ok) {
           const data = await response.json();
           setIsLoggedIn(true); // 로그인 성공 처리
+          setErrorMsg("");
 
           // Bearer 형식 저장
           localStorage.setItem("accessToken", data.token);
+          console.log('[AUTH] origin:', location.origin);
+          console.log('[AUTH] about to save user →', data.user);
           localStorage.setItem('user', JSON.stringify(data.user));
+          console.log('[AUTH] saved user raw =', localStorage.getItem('user'));
 
           navigate('/');
         } else {

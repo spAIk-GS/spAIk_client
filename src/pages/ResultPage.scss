@@ -1,0 +1,47 @@
+.result-page {
+
+  
+
+  .metric-strip {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(120px, 1fr));
+    gap: 16px;
+    margin: 24px 0 32px;
+  }
+
+  .metric-card {
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 16px;
+    padding: 14px 12px 18px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  }
+
+  .metric-label {
+    font-weight: 700;
+    letter-spacing: .2px;
+    margin-bottom: 6px;
+  }
+
+  .metric-emoji {
+    font-size: 48px;       /* 이 부분이 ‘사진처럼’ 보이게 해주는 핵심 */
+    line-height: 1;
+    margin: 8px 0 10px;
+  }
+
+  .metric-value {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: .3px;
+
+    &.good { color: #2948ff; }    /* 예시: 파란 계열(좋음) */
+    &.okay { color: #2b8b7e; }    /* 예시: 녹청 계열(보통) */
+    &.bad  { color: #b24a2e; }    /* 예시: 적갈 계열(나쁨) */
+    &.none { color: #9aa0a6; }
+  }
+}
+
+.container {
+  margin-bottom: 30px;
+}

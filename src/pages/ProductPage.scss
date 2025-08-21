@@ -1,0 +1,180 @@
+@import "../styles/main";
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  overflow-y: auto; /* 단일 스크롤: 바디만 스크롤 */
+}
+
+.product-page {
+  font-family: $font-main;
+  line-height: 1.35;
+  min-height: 100vh;
+}
+
+:root {
+  --footer-h: 850px; /* 필요시 높이 조정 */
+  --footer-gap: 16px; /* 푸터 위 간격(요청한 간격) */
+}
+.page-content {
+  flex: 1 0 auto;
+  padding-bottom: calc(var(--footer-h) + var(--footer-gap));
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin-inline: auto;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__copy {
+    position: relative;
+    transform: translate(-30%, 30%);
+    z-index: 2; /* 글자가 위로 올라오게 */
+    max-width: 900px;
+    font-size: 2rem;
+    line-height: 1.5;
+}
+
+.hero__copy h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.hero__copy2 {
+    position: relative;
+    transform: translate(20%, 140%);
+    z-index: 2; /* 글자가 위로 올라오게 */
+    text-align: right;
+    max-width: 900px;
+    font-size: 2rem;
+    line-height: 1.5;
+}
+
+.hero__copy2 h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.hero__copy3 {
+    position: relative;
+    transform: translate(-60%, 190%);
+    z-index: 2; /* 글자가 위로 올라오게 */
+    max-width: 900px;
+    font-size: 2rem;
+    line-height: 1.5;
+}
+
+.hero__copy3 h1 {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.hero__copy4 {
+    position: relative;
+    transform: translate(60%, 310%);
+    z-index: 2; /* 글자가 위로 올라오게 */
+    max-width: 900px;
+    font-size: 2rem;
+    text-align: right;
+    line-height: 1.5;
+}
+
+.hero__copy4 h1 {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.product-page__illustration {
+    position: absolute;
+    top: 100%;
+    left: 70%;
+    transform: translate(-30%, -40%);
+    opacity: 0.8; /* 살짝 투명도 */
+    z-index: 1; /* 이미지가 글씨보다 뒤로 */
+    flex: 1;
+    min-width: 500px;
+
+    img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
+    mask-image: radial-gradient(circle, black 50%, transparent 100%);
+    }
+}
+
+.graph {
+    position: absolute;
+    top: 180%;
+    left: 70%;
+    transform: translate(-250%, -20%);
+    //opacity: 0.8; /* 살짝 투명도 */
+    z-index: 1; /* 이미지가 글씨보다 뒤로 */
+    flex: 1;
+    min-width: 200px;
+
+    img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
+    mask-image: radial-gradient(circle, black 50%, transparent 100%);
+    }
+}
+
+.video {
+    position: absolute;
+    top: 140%;
+    left: 130%;
+    transform: translate(-150%, 20%);
+    opacity: 0.8; /* 살짝 투명도 */
+    z-index: 1; /* 이미지가 글씨보다 뒤로 */
+    flex: 1;
+    min-width: 600px;
+
+    img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
+    mask-image: radial-gradient(circle, black 50%, transparent 100%);
+    }
+}
+.audio {
+    position: absolute;
+    top: 180%;
+    left: 0%;
+    transform: translate(-10%, 80%);
+    opacity: 0.8; /* 살짝 투명도 */
+    z-index: 1; /* 이미지가 글씨보다 뒤로 */
+    flex: 1;
+    min-width: 300px;
+
+    img {
+    max-width: 70%;
+    height: auto;
+    border-radius: 16px;
+    -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
+    mask-image: radial-gradient(circle, black 50%, transparent 100%);
+    }
+}
+
+.brand { color: $color-red }
+.model { color: $color-blue }
+.model2 { color: $color-green }
+.ai { color: $color-yellow }
+.emphasis { font-weight: 800; }
