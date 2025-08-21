@@ -162,7 +162,7 @@ const UploadPage = () => {
     const durationMinutes = videoMetadata.duration / 60;
     if (durationMinutes < 3 || durationMinutes > 15) {
       alert("영상 길이는 3분 이상 15분 이하이어야 합니다.");
-      //return; 나중에 제거
+      return;
     }
 
     // 조건 통과 시 다음 단계로 이동
